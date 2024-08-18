@@ -1,16 +1,22 @@
 class Solution:
-    def moveZeroes(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        non_zero_index = 0
-        
-        # Move non-zero elements to the front of the list
-        for i in range(len(nums)):
-            if nums[i] != 0:
-                nums[non_zero_index] = nums[i]
-                non_zero_index += 1
-        
-        # Fill the remaining positions with zeroes
-        for i in range(non_zero_index, len(nums)):
-            nums[i] = 0
+    def moveZeroes(self, a: List[int]) -> None:
+        j = -1
+        n = len(a)
+        # Place the pointer j
+        for i in range(n):
+            if a[i] == 0:
+                j = i
+                break
+
+        # No non-zero elements
+        if j == -1:
+            return a
+
+        # Move the pointers i and j and swap accordingly
+        for i in range(j + 1, n):
+            if a[i] != 0:
+                a[i], a[j] = a[j], a[i]
+                j += 1
+                        
+
+
