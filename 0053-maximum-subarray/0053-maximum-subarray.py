@@ -5,7 +5,7 @@ class Solution:
         for num in nums:
             Sum += num
             if Sum > maxx:
-                maxx = max(Sum,maxx)
+                maxx = Sum
             if Sum <= 0:
                 Sum = 0
         return maxx
