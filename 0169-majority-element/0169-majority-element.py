@@ -11,10 +11,12 @@ class Solution:
                 count += 1
             else:
                 count -= 1
+        return element
         
-        count1 = 0
-        for i in range(n):
-            if nums[i] == element:
-                count1 += 1
-        if count1 > (n/2):
-            return element
+        #This check is not necessary because it is given that majority element always exists in the array.
+        # count1 = 0
+        # for i in range(n):
+        #     if nums[i] == element:
+        #         count1 += 1
+        # if count1 > (n/2):
+        #     return element
