@@ -3,28 +3,34 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        n = len(nums)
-        # Step 1: Find the break point:
-        ind = -1 # break point
-        for i in range(n-2,-1,-1):
+        if len(nums) == 1:
+            return nums
+        change = 0
+        for i in range(len(nums)-2,-1,-1):
             if nums[i] < nums[i+1]:
-                ind = i
+                change = i
                 break
         
-        # If break point does not exist:
-        # Reverse the Whole Array
-        if ind == -1:
-            nums.reverse()
-            return
-        
-        # Step 2: Find the next greater element
-        #   and swap it with arr[ind]:
-        for i in range(n-1,-1,-1):
-            if nums[i] > nums[ind]:
-                nums[i], nums[ind] = nums[ind], nums[i]
+        pter = len(nums)-1
+        while pter > change:
+            if nums[pter] > nums[change]:
                 break
-        
-        # Step 3: reverse the right half:
-        nums[ind+1:] = reversed(nums[ind+1:])
-        
+            pter-=1
+        # print(change, pter)
+
+        if pter != change:
+            nums[change], nums[pter] = nums[pter], nums[change]
+        else:
+            nums[change], nums[-1] = nums[-1], nums[change]
+
+        i = change+1
+        j = len(nums)-1
+        # print(nums)
+        while i <= j:
+            if nums[i] > nums[j]:
+                nums[i], nums[j] = nums[j], nums[i]
+                i+=1
+            else:
+                j-=1
+            # print(i,j,nums)
         
