@@ -1,17 +1,19 @@
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:
-        k = len(nums) - 2
-        while k >= 0 and nums[k] >= nums[k + 1]:
-            k -= 1
-        if k == -1:
-            nums.reverse()
+        if not nums:
             return
-        l = len(nums) - 1
-        while nums[l] <= nums[k]:
-            l -= 1
-        nums[k], nums[l] = nums[l], nums[k]
-        left, right = k + 1, len(nums) - 1
-        while left < right:
-            nums[left], nums[right] = nums[right], nums[left]
-            left += 1
-            right -= 1
+
+        # find the first decreasing element from the end
+        i = len(nums) - 2
+        while i >= 0 and nums[i] >= nums[i + 1]:
+            i -= 1
+
+        # if i is not the first element, swap nums[i] with the next larger element
+        if i >= 0:
+            j = len(nums) - 1
+            while nums[j] <= nums[i]:
+                j -= 1
+            nums[i], nums[j] = nums[j], nums[i]
+
+        # reverse the elements after the swapped element
+        nums[i + 1:] = nums[i + 1:][::-1]
