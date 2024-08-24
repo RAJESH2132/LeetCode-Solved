@@ -1,23 +1,19 @@
 class Solution:
-    def subarraySum(self, arr: List[int], k: int) -> int:
-        n = len(arr) # size of the given array.
-        mpp = defaultdict(int)
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        dictt = {0:1}
         preSum = 0
-        cnt = 0
-
-        mpp[0] = 1 # Setting 0 in the map.
-        for i in range(n):
-            # add current element to prefix Sum:
-            preSum += arr[i]
-
-            # Calculate x-k:
+        count = 0
+        n = len(nums)
+        dictt[0] = 1
+        
+        for num in nums:
+            preSum += num
             remove = preSum - k
-
-            # Add the number of subarrays to be removed:
-            cnt += mpp[remove]
-
-            # Update the count of prefix sum
-            # in the map.
-            mpp[preSum] += 1
-
-        return cnt
+            if remove in dictt:
+                count += dictt[remove]
+            if preSum in dictt:
+                dictt[preSum] += 1
+            else:
+                dictt[preSum] = 1
+            
+        return count
