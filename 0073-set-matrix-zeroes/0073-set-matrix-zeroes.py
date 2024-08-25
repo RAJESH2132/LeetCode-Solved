@@ -1,28 +1,22 @@
 class Solution:
     def setZeroes(self, matrix: List[List[int]]) -> None:
-        # O(1)
-        ROWS, COLS = len(matrix), len(matrix[0])
-        rowZero = False
 
-        # determine which rows/cols need to be zero
-        for r in range(ROWS):
-            for c in range(COLS):
-                if matrix[r][c] == 0:
-                    matrix[0][c] = 0
-                    if r > 0:
-                        matrix[r][0] = 0
-                    else:
-                        rowZero = True
+        # First pass: find all zeros
+        out = []
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if matrix[i][j] == 0:
+                    out.append([i,j])
+        
+        # Extract rows and columns that should be zeroed
+        cols = []
+        rows = []
+        for li in out:
+            rows.append(li[0])
+            cols.append(li[1])
 
-        for r in range(1, ROWS):
-            for c in range(1, COLS):
-                if matrix[0][c] == 0 or matrix[r][0] == 0:
-                    matrix[r][c] = 0
-
-        if matrix[0][0] == 0:
-            for r in range(ROWS):
-                matrix[r][0] = 0
-
-        if rowZero:
-            for c in range(COLS):
-                matrix[0][c] = 0
+        # Second pass: Set the appropriate rows and columns to zero
+        for i in range(len(matrix)):
+            for j in range(len(matrix[0])):
+                if i in rows or j in cols:
+                    matrix[i][j] = 0
