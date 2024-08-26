@@ -1,19 +1,11 @@
 class Solution:
     def largestOddNumber(self, num: str) -> str:
-        group = []
-        maxx = -1
-        if int(num)%2!=0:
-            return num
-        else:
-            for i in num:
-                x = int(i)
-                if x%2!=0:
-                    if x > int(maxx):
-                        maxx = i
-            if maxx == -1:
-                return ""
-            return maxx
-        
+        for i in range(len(num) - 1, -1, -1):
+        # Check if the current character is an odd digit
+            if int(num[i]) % 2 != 0:
+                # Return the substring from start to the current position
+                return num[:i+1]
+    # If no odd digit is found, return an empty string
         return ""
 
             
