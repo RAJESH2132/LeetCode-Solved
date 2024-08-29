@@ -1,7 +1,6 @@
 class Solution:
     def myAtoi(self, s: str) -> int:
-        #2:44
-
+        
         i = 0
 
         INT_MAX = 2**31 - 1
