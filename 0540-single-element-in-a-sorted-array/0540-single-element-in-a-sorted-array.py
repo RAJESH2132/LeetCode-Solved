@@ -1,21 +1,23 @@
 class Solution:
-    def singleNonDuplicate(self, a: List[int]) -> int:
-        n = len(a)
-        low = 1
-        high = n-2
-        if n == 1:
-            return a[0]
-        if a[0] != a[1]:
-            return a[0]
-        if a[n-1]!=a[n-2]:
-            return a[n-1]
-        
-        while low <= high:
-            mid = (low+high)//2
-            if a[mid]!=a[mid-1] and a[mid]!=a[mid+1]:
-                return a[mid]
-            if ((mid%2==0 and a[mid]==a[mid+1]) or (mid%2==1 and a[mid]==a[mid-1])):
-                low = mid+1
+    def singleNonDuplicate(self, nums: List[int]) -> int:
+        # Initialize the left and right pointers
+        l, r = 0, len(nums) - 1
+
+        while l != r:
+            # Set the value of mid
+            mid = l + (r - l) // 2
+
+            # If mid is odd, decrement it to make it even
+            if mid % 2 == 1:
+                mid -= 1
+
+            # If the elements at mid and mid + 1 are the same,
+            # then the single element must appear after the midpoint
+            if nums[mid] == nums[mid + 1]:
+                l = mid + 2
+            # Otherwise, we must search for the single element
+            # before the midpoint
             else:
-                high = mid-1
-        return -1
+                r = mid
+
+        return nums[l]
