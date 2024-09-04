@@ -1,23 +1,29 @@
-class Solution(object):
-    def findPeakGrid(self, mat):
-        startCol = 0
-        endCol = len(mat[0])-1
-       
-        while startCol <= endCol:
-            maxRow = 0
-            midCol = (endCol+startCol)//2
-            
-            for row in range(len(mat)):
-                maxRow = row if (mat[row][midCol] >= mat[maxRow][midCol]) else maxRow
-            
-            leftIsBig    =   midCol-1 >= startCol  and  mat[maxRow][midCol-1] > mat[maxRow][midCol]
-            rightIsBig   =   midCol+1 <= endCol    and  mat[maxRow][midCol+1] > mat[maxRow][midCol]
-            
-            if (not leftIsBig) and (not rightIsBig):   # we have found the peak element
-                return [maxRow, midCol]
-            elif rightIsBig:             # if rightIsBig, then there is an element in 'right' that is bigger than all the elements in the 'midCol', 
-                startCol = midCol+1     # so 'midCol' cannot have 'peakPlane'
-            else:                           # leftIsBig
-                endCol = midCol-1
-                
-        return [-1, -1]
+class Solution:
+
+    def maxRow(self,mat,n,m,mid):
+        maxValue = -1
+        index = -1
+        for i in range(n):
+            if mat[i][mid] > maxValue:
+                maxValue = mat[i][mid]
+                index = i
+        return index
+
+
+    def findPeakGrid(self, mat: List[List[int]]) -> List[int]:
+        n = len(mat)
+        m = len(mat[0])
+        low = 0
+        high = m-1
+        while low <=high:
+            mid = (low+high)//2
+            maxRowIndex = self.maxRow(mat,n,m,mid)
+            left = mat[maxRowIndex][mid-1] if mid-1 >=0 else -1
+            right = mat[maxRowIndex][mid+1] if mid+1 < m else -1
+            if mat[maxRowIndex][mid] > left and mat[maxRowIndex][mid]>right:
+                return (maxRowIndex,mid)
+            elif mat[maxRowIndex][mid]<left:
+                high = mid-1
+            else:
+                low = mid+1
+        return (-1,-1)
