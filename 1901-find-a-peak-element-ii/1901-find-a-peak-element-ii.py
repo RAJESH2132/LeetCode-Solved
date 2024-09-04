@@ -1,52 +1,23 @@
 class Solution(object):
-    def getMaxElement(self, matrix, mid):
-        index = -1
-        maxi = float('-inf')
-
-        for row in range(len(matrix)):
-            elm = matrix[row][mid]
-
-            if elm > maxi:
-                maxi = max(maxi, elm)
-                index = row
-
-        return index
-
-    def findPeakGrid(self, matrix):
-        n = len(matrix)
-        m = len(matrix[0])
-
-        start = 0
-        end = m - 1
-
-        while start <= end:
-            mid = start + (end - start) // 2
-
-            # find maximum because we have to check top, bottom, left, right
-            # if we use maximum, then our element is definitely greater than top and bottom
-            # so we need to check only left and right, i.e., our problem is reduced to finding a peak in 1D
-
-            row = self.getMaxElement(matrix, mid)
-            left = -1
-            right = -1
-
-            # handling edge cases
-            if mid - 1 >= 0:
-                left = matrix[row][mid - 1]
-
-            if mid + 1 < m:
-                right = matrix[row][mid + 1]
-
-            # we find the peak element
-            if matrix[row][mid] > left and matrix[row][mid] > right:
-                return [row, mid]
-
-            # our peak is on the left side of mid, so eliminate the right part
-            elif matrix[row][mid] > right:
-                end = mid - 1
-
-            # our peak is on the right side of mid, so eliminate the left part
-            else:
-                start = mid + 1
-
+    def findPeakGrid(self, mat):
+        startCol = 0
+        endCol = len(mat[0])-1
+       
+        while startCol <= endCol:
+            maxRow = 0
+            midCol = (endCol+startCol)//2
+            
+            for row in range(len(mat)):
+                maxRow = row if (mat[row][midCol] >= mat[maxRow][midCol]) else maxRow
+            
+            leftIsBig    =   midCol-1 >= startCol  and  mat[maxRow][midCol-1] > mat[maxRow][midCol]
+            rightIsBig   =   midCol+1 <= endCol    and  mat[maxRow][midCol+1] > mat[maxRow][midCol]
+            
+            if (not leftIsBig) and (not rightIsBig):   # we have found the peak element
+                return [maxRow, midCol]
+            elif rightIsBig:             # if rightIsBig, then there is an element in 'right' that is bigger than all the elements in the 'midCol', 
+                startCol = midCol+1     # so 'midCol' cannot have 'peakPlane'
+            else:                           # leftIsBig
+                endCol = midCol-1
+                
         return [-1, -1]
