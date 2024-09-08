@@ -5,21 +5,24 @@
 #         self.next = None
 
 class Solution:
-    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        slow = head
-        fast = head
+    def detectCycle(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return None
+        
+        # 步驟 1: 使用快慢指針找到相遇點
+        slow = fast = head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
             if slow == fast:
                 break
+        else:
+            return None  # 沒有環
         
-        if not fast or not fast.next:
-            return None
-        
-        slow2 = head
-        while slow != slow2:
+        # 步驟 2: 找到環的起始點
+        slow = head
+        while slow != fast:
             slow = slow.next
-            slow2 = slow2.next
-
+            fast = fast.next
+        
         return slow
