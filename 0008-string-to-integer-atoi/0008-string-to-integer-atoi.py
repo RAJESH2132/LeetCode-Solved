@@ -33,6 +33,7 @@
         return ans * sign
 '''
 
+############################################### Approach 1 ##################################################
 class Solution:
     def myAtoi(self, s: str) -> int:
         ans = 0
