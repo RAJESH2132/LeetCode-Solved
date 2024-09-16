@@ -1,25 +1,16 @@
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
-        max_length = 0
-        n = len(s)
-        
-        # Check all possible substrings
-        for i in range(n):
-            open_count = 0
-            close_count = 0
-            for j in range(i, n):
-                if s[j] == '(':
-                    open_count += 1
+        stack = [-1]
+        max_len = 0
+
+        for i in range(len(s)):
+            if s[i] == "(":
+                stack.append(i)
+            else:
+                stack.pop()
+                if len(stack) == 0:
+                    stack.append(i)
                 else:
-                    close_count += 1
-                
-                # If at any point close_count exceeds open_count, the substring is invalid
-                if close_count > open_count:
-                    break
-                
-                # If open_count == close_count, it's a valid parentheses substring
-                if open_count == close_count:
-                    max_length = max(max_length, j - i + 1)
+                    max_len = max(max_len, i - stack[-1])
         
-        return max_length
-    
+        return max_len
