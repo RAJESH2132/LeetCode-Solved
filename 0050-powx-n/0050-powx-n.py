@@ -1,23 +1,12 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
-
-        def calc_power(x, n):
-            if x == 0:
-                return 0
-            if n == 0:
-                return 1
-            
-            res = calc_power(x, n // 2)
-            res = res * res
-
-            if n % 2 == 1:
-                return res * x
-            
-            return res
-
-        ans = calc_power(x, abs(n))
-
-        if n >= 0:
-            return ans
-        
-        return 1 / ans 
+        is_negative = n < 0
+        n = abs(n)  # Make n positive
+        result = 1
+        while n > 0:
+            if n % 2 == 1:  # If n is odd
+                result *= x
+                n -= 1
+            x *= x  # Square the base
+            n //= 2  # Halve the exponent
+        return 1 / result if is_negative else result
