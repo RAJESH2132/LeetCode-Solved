@@ -1,8 +1,11 @@
-class Solution:
-    def fib(self, n: int) -> int:
-        demo=[0,1]
-        if n <= 1:
+class Solution(object):
+    def fn(self, n, dp):
+        if n <= 1: 
             return n
-        for i in range(2, n+1):
-            demo.append(demo[i-1]+demo[i-2])
-        return demo[-1]
+        if dp[n] != -1: 
+            return dp[n]
+        dp[n] = self.fn(n-1, dp) + self.fn(n-2, dp)
+        return dp[n]
+    def fib(self, n):
+        dp = [-1] * (n + 1)
+        return self.fn(n, dp)
