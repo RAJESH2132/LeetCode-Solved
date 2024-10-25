@@ -1,23 +1,15 @@
 class Solution:
+    def binarySearch(self, nums: List[int], low: int, high: int, target: int) -> int:
+        if low > high:
+            return -1  # Base case
+
+        # Perform the steps:
+        mid = (low + high) // 2
+        if nums[mid] == target:
+            return mid
+        elif target > nums[mid]:
+            return self.binarySearch(nums, mid + 1, high, target)
+        return self.binarySearch(nums, low, mid - 1, target)
+
     def search(self, nums: List[int], target: int) -> int:
-        # Set the left and right boundaries
-        left = 0
-        right = len(nums) - 1
-        
-        # Under this condition
-        while left <= right:
-            # Get the middle index and the middle value.
-            mid = (left + right) // 2
-            
-            # Case 1, return the middle index.
-            if nums[mid] == target:
-                return mid
-            # Case 2, discard the smaller half.
-            elif nums[mid] < target:
-                left = mid + 1                 
-            # Case 3, discard the larger half.         
-            else:
-                right = mid - 1
-        
-        # If we finish the search without finding target, return -1.
-        return -1
+        return self.binarySearch(nums, 0, len(nums) - 1, target)
