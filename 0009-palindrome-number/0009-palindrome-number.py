@@ -1,23 +1,12 @@
 class Solution:
-    def isPalindrome(self, n: int) -> bool:
-        # -----------------------Solution1---------------------------------
-        # If the number is negative, it's not a palindrome
-        if n < 0:
+    def isPalindrome(self, x: int) -> bool:
+        if x < 0 and x == 0:
             return False
-        
-        # Convert the number to a string
-        str_x = str(n)
-        
-        # Check if the string is the same as its reverse
-        return str_x == str_x[::-1]
-
-        # --------------------------Solution2----------------------------------
-        # original = n
-        # revNum = 0
-        # while n > 0:
-        #     digit = n % 10
-        #     revNum = revNum * 10 + digit
-        #     n = n // 10
-        # if original != revNum:
-        #     return False
-        # return True
+        temp = 0
+        original = x
+        while x > 0:
+            temp = temp*10 + (x%10)
+            x //= 10
+        if temp == original:
+            return True
+        return False
