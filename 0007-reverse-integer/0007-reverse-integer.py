@@ -1,22 +1,15 @@
 class Solution:
-    def reverse(self, n: int) -> int:
-        INT_MAX = 2**31 - 1  # Maximum 32-bit signed integer
-        INT_MIN = -2**31     # Minimum 32-bit signed integer
-
-        # Determine the sign and work with the absolute value of n
-        sign = -1 if n < 0 else 1
-        n = abs(n)
-
-        # Reverse the number
-        reversed_num = 0
-        while n > 0:
-            digit = n % 10
-            reversed_num = reversed_num * 10 + digit
-            n //= 10
-
-        # Check for overflow
-        if reversed_num > INT_MAX or reversed_num < INT_MIN:
+    def reverse(self, x: int) -> int:
+        sign = -1 if x < 0 else 1
+        x = x*(-1) if sign < 0 else x
+        low = -2**31
+        high = 2**31-1
+        revNum = 0
+        while x:
+            digit = x % 10
+            revNum = revNum * 10 + digit
+            x = x // 10
+        if revNum < low or revNum > high :
             return 0
+        return revNum*sign
         
-        return sign * reversed_num
-
