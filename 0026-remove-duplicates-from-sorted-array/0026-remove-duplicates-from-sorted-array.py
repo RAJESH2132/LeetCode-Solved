@@ -1,8 +1,14 @@
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        j = 1
-        for i in range(1, len(nums)):
-            if nums[i] != nums[i - 1]:
-                nums[j] = nums[i]
-                j += 1
-        return j
+        if not nums:  # If the list is empty, no duplicates to remove
+            return 0
+        
+        # Initialize a pointer to track the position of the last unique element
+        unique_index = 0
+        
+        for i in range(1, len(nums)):  # Start from the second element
+            if nums[i] != nums[unique_index]:  # If the current element is different
+                unique_index += 1  # Move the unique pointer
+                nums[unique_index] = nums[i]  # Update the position with the unique element
+        
+        return unique_index + 1  # The length of the array without duplicates is unique_index + 1
