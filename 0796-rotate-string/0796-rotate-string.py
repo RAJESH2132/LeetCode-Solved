@@ -2,5 +2,5 @@ class Solution:
     def rotateString(self, s: str, goal: str) -> bool:
         if len(s) != len(goal):
             return False
-        
-        return goal in s + s
+        ans = s+s
+        return goal in ans
