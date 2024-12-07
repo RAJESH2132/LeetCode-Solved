@@ -1,19 +1,13 @@
 class Solution:
-    def moveZeroes(self, a: List[int]) -> None:
-        j = -1
-        n = len(a)
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        Optimized version with single pass.
+        """
+        n = len(nums)
+        index = 0
         for i in range(n):
-            if a[i] == 0:
-                j = i
-                break
-
-        if j == -1:
-            return a
-
-        for i in range(j + 1, n):
-            if a[i] != 0:
-                a[i], a[j] = a[j], a[i]
-                j += 1
-                        
-
-
+            if nums[i] != 0:
+                # Swap current element with the element at the `index` position
+                nums[i], nums[index] = nums[index], nums[i]
+                index += 1
