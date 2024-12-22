@@ -11,6 +11,7 @@ class Solution:
             if guess == target:
                 return True
             elif guess < target:
+                
                 left = mid + 1
             else:
                 right = mid - 1
