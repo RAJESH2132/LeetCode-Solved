@@ -5,7 +5,8 @@ class Solution:
         total = 0
         for i in range(n):
             total += nums[i]
-            maxSum = max(maxSum,total)
+            if total > maxSum:
+                maxSum = total
             if total < 0:
                 total = 0
         return maxSum
