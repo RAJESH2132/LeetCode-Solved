@@ -3,20 +3,19 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        index = -1
         n = len(nums)
+        ind = -1
+        # Finding Break Point
         for i in range(n-2,-1,-1):
             if nums[i]<nums[i+1]:
-                index = i
+                ind = i
                 break
-        if index == -1:
-            nums.reverse()
-            return
-        for i in range(n-1,index,-1):
-            if nums[i] > nums[index]:
-                nums[i], nums[index] = nums[index], nums[i]
+        if ind == -1:
+            return nums.reverse()
+            
+        for i in range(n-1,ind,-1):
+            if nums[i] > nums[ind]:
+                nums[i], nums[ind] = nums[ind], nums[i]
                 break
-        mid = index + 1
-        nums[index+1:] = reversed(nums[index+1:])
-
-
+        nums[ind+1:] = reversed(nums[ind+1:])
+        return nums
